@@ -76,18 +76,58 @@ Google Magenta MusicVAE를 사용하여 4마디에 해당하는 드럼 샘플 Ge
 - Decoder를 통과한 Output과 Input의 Log Loss(on/off), MSE(velocity, offset)를 최소화하는 방향으로 학습
 
 
+---
 ## Environments
 - Google Colab GPU Runtime
+- Clone `samples` and put it in Google Drive like down below.
 - Clone `MusicVAE_Drum_Sampling_4bars.ipynb` and put it in Google Drive like down below.
 - Clone [magenta](https://github.com/magenta/magenta) and put it in Google Drive like down below.
+- Decompress `groove-v1.0.0-midionly.zip` from `datasets` directory and put it in Google Drive like down below.
 ```
 Google Drive
 └── Colab Notebooks
+    ├── groove*
     ├── magenta*
     │   ├── demos
     │   └── magenta
+    ├── samples*
     └── MusicVAE_Drum_Sampling_4bars.ipynb*
 ```
+
+
+---
+## Preprocess
+- `Preprocess.ipynb` 참고
+- 아래와 같이 proto 형식의 sequence로 변환
+- `pitch`: Roland Mapping 기반 9차원 Mapping
+- `mapping`: Bass, Snare, Closed Hi-Hat, High Floor Tom, Open Hi-Hat, Low-Mid Tom, High Tom, Crash, Ride
+- `samples`의 midi 파일을 사용하여 proto 변환 및 tfrecord 변환 전처리 확인
+- 실제 학습에서는 매개변수로 Groove MIDI Dataset 사용, 자동으로 Preprocessing 진행
+```
+notes {
+  pitch: 42
+  velocity: 17
+  end_time: 0.12272727272727273
+  is_drum: true
+}
+```
+- `convert_dir_to_note_sequences.py`: 폴더 내 모든 midi 파일을 tfrecord 형식으로 변환
+- /content/drive/MyDrive/Colab Notebooks/magenta/magenta/scripts/convert_dir_to_note_sequences.py
+```linux
+!python convert_dir_to_note_sequences.py \
+  --input_dir="/content/drive/MyDrive/Colab Notebooks/samples" \
+  --output_file=SEQUENCES_TFRECORD \
+  --recursive
+```
+
+
+
+
+
+
+
+
+
 
 
 ## Train
@@ -146,10 +186,33 @@ Google Drive
     │               └── preprocess_tfrecord.py
     └── MusicVAE_Drum_Sampling_4bars.ipynb
 ```
+
+
+
+
+
+
+
+
+
+
+## Visualization
+- proto 형식의 sequence 시각화
+- `groove-v1.0.0-midionly.zip` dataset 사용 (4/4박자 midi만 사용)
+<p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172072025-0227252a-f4b7-40e1-8c8e-f375388e3a3b.png"></p>
+<p align="center">groove10_102_beat_4-4</p>
+<p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172072057-7bb77b7d-4312-4b5f-bdf0-826fef3993f9.png"></p>
+<p align="center">7_hiphop_100_beat_4-4</p>
+<p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172072070-6a9124a8-0c59-44fe-960a-2e32b56422be.png"></p>
+<p align="center">32_hiphop_92_beat_4-4</p>
+
 ## Conclusion
-
-
-
+- Generated Samples with Trained Model 비교
+- Generated Samples with Pretrained Model 비교
+- Pretrained, Trained 모두 성공적으로 드럼 사운드만을 추출
+- Trained Epochs 가 증가할수록 복잡하고 다양한 패턴의 드럼 샘플 생성
+- Pretrained보다 Trained 모델이 직관적으로 더 복잡하고 다양한 패턴의 드럼 샘플 생성  
+  -> 논문에서 언급한대로 학습한 Epoch가 높기 때문으로 추측
 
 ## Reference
 - A Hierarchical Latent Vector Model for Learning Long-Term Structure in Music (2018, Google Magenta) [[PDF]](https://arxiv.org/pdf/1803.05428.pdf)
