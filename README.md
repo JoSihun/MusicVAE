@@ -80,9 +80,11 @@ Google Magenta MusicVAE를 사용하여 4마디에 해당하는 드럼 샘플 Ge
 ## Environments
 - Google Colab GPU Runtime
 - Clone `samples` and put it in Google Drive like down below.
+- Clone `Preprocess.ipynb` and put it in Google Drive like down below.
+- Clone `Visualization.ipynb` and put it in Google Drive like down below.
 - Clone `MusicVAE_Drum_Sampling_4bars.ipynb` and put it in Google Drive like down below.
 - Clone [magenta](https://github.com/magenta/magenta) and put it in Google Drive like down below.
-- Decompress `groove-v1.0.0-midionly.zip` from `datasets` directory and put it in Google Drive like down below.
+- Decompress `groove-v1.0.0-midionly.zip` from `datasets` directory and put `groove` in Google Drive like down below.
 ```
 Google Drive
 └── Colab Notebooks
@@ -91,6 +93,8 @@ Google Drive
     │   ├── demos
     │   └── magenta
     ├── samples*
+    ├── Preprocess.ipynb*
+    ├── Visualization.ipynb*
     └── MusicVAE_Drum_Sampling_4bars.ipynb*
 ```
 
@@ -121,20 +125,11 @@ notes {
 ```
 
 
-
-
-
-
-
-
-
-
-
+---
 ## Train
-- `preprocess_tfrecord.py`의 `flags.DEFINE_bool` flags 수정
-- `is_drum` & `drums_only`를 `True`로 수정
-- Preprocess 과정에서 Drum NoteSequences만 남도록 하기 위함
-- Colab 환경에서 수정할 수 없기 때문에 파일 직접 수정
+- `MusicVAE_Drum_Sampling_4bars.ipynb`의 `Train` 파트 참고
+- `preprocess_tfrecord.py`의 `flags.DEFINE_bool` flags 수정필요
+- Colab 환경에서 수정할 수 없기 때문에 파일 직접 수정 후 Google Drive로 파일 이동
 
 ```
 Google Drive
@@ -152,8 +147,13 @@ Google Drive
 ```
 
 
-
-## Test
+---
+## Test(Generate Samples)
+- `MusicVAE_Drum_Sampling_4bars.ipynb`의 `Generate Samples` 파트 참고
+- Generate된 4마디 Drum Sample은 `samples` 폴더에 존재
+- 학습이 잘 되었다면 Decoder는 정규분포에 근사한 Latent Vector를 입력받아 기존 Input Data를 fitting
+- 즉, 정규분포의 랜덤벡터를 Decoder에 통과시키면, 새로운 샘플을 무한히 생성 가능
+- Pretrained Model을 사용하고 싶다면 `models` 폴더 내 모든 파일을 아래와 같이 `train` 폴더에 위치
 ```
 Google Drive
 └── Colab Notebooks
@@ -163,8 +163,8 @@ Google Drive
     │       └── models
     │           └── music_vae
     │               ├── js
-    │               ├── weights
-    │               │   └── groovae4bar
+    │               ├── weights*
+    │               │   └── groovae4bar*
     │               │       └── train*
     │               │           ├── model.ckpt-2721.data-00000-of-00001
     │               │           ├── model.ckpt-2721.index
@@ -188,15 +188,9 @@ Google Drive
 ```
 
 
-
-
-
-
-
-
-
-
+---
 ## Visualization
+- `Visualization.ipynb` 참고
 - proto 형식의 sequence 시각화
 - `groove-v1.0.0-midionly.zip` dataset 사용 (4/4박자 midi만 사용)
 <p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172072025-0227252a-f4b7-40e1-8c8e-f375388e3a3b.png"></p>
@@ -206,6 +200,8 @@ Google Drive
 <p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172072070-6a9124a8-0c59-44fe-960a-2e32b56422be.png"></p>
 <p align="center">32_hiphop_92_beat_4-4</p>
 
+
+---
 ## Conclusion
 - Generated Samples with Trained Model 비교
 - Generated Samples with Pretrained Model 비교
@@ -214,6 +210,8 @@ Google Drive
 - Pretrained보다 Trained 모델이 직관적으로 더 복잡하고 다양한 패턴의 드럼 샘플 생성  
   -> 논문에서 언급한대로 학습한 Epoch가 높기 때문으로 추측
 
+
+---
 ## Reference
 - A Hierarchical Latent Vector Model for Learning Long-Term Structure in Music (2018, Google Magenta) [[PDF]](https://arxiv.org/pdf/1803.05428.pdf)
 - Google Magenta: https://github.com/magenta/magenta [[Github]](https://github.com/magenta/magenta)
