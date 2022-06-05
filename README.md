@@ -16,9 +16,9 @@ Google Magenta MusicVAE를 사용하여 4마디에 해당하는 드럼 샘플 Ge
 
 ---
 ### VAE(Variational Auto Encoder)
-<p align="center"><img width=50% src="https://user-images.githubusercontent.com/59362257/172065378-c11168a8-4000-44f2-a504-4eed2a93d0b1.png"></p>
+<p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172065378-c11168a8-4000-44f2-a504-4eed2a93d0b1.png"></p>
 <p align="center">Basic Architecture of a Single Layer AutoEncoder</p>
-<p align="center"><img width=50% src="https://user-images.githubusercontent.com/59362257/172065954-4e1341ca-894c-4496-bbec-7613486b4ad8.png"></p>
+<p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172065954-4e1341ca-894c-4496-bbec-7613486b4ad8.png"></p>
 <p align="center">VAE Architecture</p>
 
 - AE(Auto Encoder)와 유사
@@ -69,7 +69,7 @@ Google Magenta MusicVAE를 사용하여 4마디에 해당하는 드럼 샘플 Ge
 
 ---
 ### MusicVAE Model
-<p align="center"><img width=50% src="https://user-images.githubusercontent.com/59362257/172065050-8653db32-e4dc-4b96-8a9c-7aae92121873.png"></p>
+<p align="center"><img width=75% src="https://user-images.githubusercontent.com/59362257/172065050-8653db32-e4dc-4b96-8a9c-7aae92121873.png"></p>
 
 - `Input` - `2 Layer Bi-LSTM` - `2 FC Layer` - `Latent Space` - `FC Layer` - `2 Layer Uni-LSTM` - `2 Layer LSTM` - `Output`
 - 정규분포와 Latent Vector와의 쿨백 라이블러 발산(Kullback-Leibler Divergence, KLD) 손실함수를 최소화하는 방향으로 학습
