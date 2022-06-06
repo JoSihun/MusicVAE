@@ -130,6 +130,10 @@ notes {
 - `MusicVAE_Drum_Sampling_4bars.ipynb`의 `Train` 파트 참고
 - `preprocess_tfrecord.py`의 `flags.DEFINE_bool` flags 수정필요
 - Colab 환경에서 수정할 수 없기 때문에 파일 직접 수정 후 Google Drive로 파일 이동
+- Hyper Parameter는 default값 사용
+- 논문에서 언급한 50k ~ 100k 사이, 50k epoch 학습
+- 실제 학습결과 약 33k epoch 부터 loss에 큰 변화 없음
+- Colab 런타임 유형 GPU 기준 약 5시간 소요
 
 ```
 Google Drive
